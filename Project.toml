@@ -1,0 +1,13 @@
+name = "MyLocalTest"
+uuid = "57ccecd1-779c-4b98-8479-c5dc91907fb8"
+authors = ["Jianshu Jie"]
+version = "0.1.0"
+
+[compat]
+julia = "1.7.1"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
