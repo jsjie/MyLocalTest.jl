@@ -8,9 +8,10 @@ end
 
 function dftd4_new_structure(error, n_atoms, numbers, positions, charge, lattice, periodic)
     return ccall(
-        (:dftd4_new_error, lib_dftd4_name),
+        (:dftd4_new_structure, lib_dftd4_name),
         Ptr{Any},
-        (Ptr{Any}, Cint, Vector{Cint}, Vector{Cdouble}, Vector{Cdouble}, Vector{Cdouble}, Vector{Bool}),
+        # (Ptr{Any}, Cint, Vector{Cint}, Vector{Cdouble}, Cdouble, Vector{Cdouble}, Vector{Bool}),
+        (Ptr{Any}, Int64, Ptr{Vector{Int64}}, Ptr{Vector{Float64}}, Ptr{Float64}, Ptr{Vector{Float64}}, Ptr{Vector{Bool}}),
         error, n_atoms, numbers, positions, charge, lattice, periodic
     )
 end
@@ -38,7 +39,8 @@ function dftd4_get_dispersion(error, mol, disp, param, energy, gradient, sigma)
     return ccall(
         (:dftd4_get_dispersion, lib_dftd4_name),
         Cvoid,
-        (Ptr{Any}, Ptr{Any}, Ptr{Any}, Ptr{Any}, Ptr{Cdouble}, Ptr{Vector{Cdouble}}, Ptr{Vector{Cdouble}}),
+        (Ptr{Any}, Ptr{Any}, Ptr{Any}, Ptr{Any}, Ptr{Float64}, Ptr{Vector{Float64}}, Ptr{Vector{Float64}}),
+        # (Ptr{Any}, Ptr{Any}, Ptr{Any}, Ptr{Any}, Vector{Cdouble}, Vector{Cdouble}, Vector{Cdouble}),
         error, mol, disp, param, energy, gradient, sigma
     )
 end
@@ -47,7 +49,7 @@ function dftd4_delete_param(param)
     return ccall(
         (:dftd4_delete_param, lib_dftd4_name),
         Cvoid,
-        (Ptr{Any}),
+        (Ptr{Any}, ),
         param
     )
 end
@@ -56,7 +58,7 @@ function dftd4_delete_model(disp)
     return ccall(
         (:dftd4_delete_model, lib_dftd4_name),
         Cvoid,
-        (Ptr{Any}),
+        (Ptr{Any}, ),
         disp
     )
 end
@@ -65,7 +67,7 @@ function dftd4_delete_structure(mol)
     return ccall(
         (:dftd4_delete_structure, lib_dftd4_name),
         Cvoid,
-        (Ptr{Any}),
+        (Ptr{Any}, ),
         mol
     )
 end
@@ -74,7 +76,16 @@ function dftd4_delete_error(error)
     return ccall(
         (:dftd4_delete_error, lib_dftd4_name),
         Cvoid,
-        (Ptr{Any}),
+        (Ptr{Any}, ),
+        error
+    )
+end
+
+function dftd4_check_error(error)
+    return ccall(
+        (:dftd4_check_error, lib_dftd4_name),
+        Cint,
+        (Ptr{Any}, ),
         error
     )
 end
