@@ -9,6 +9,7 @@ MKL = "33e6dc65-8f57-5167-99aa-e5a354878fb2"
 Revise = "295af30f-e4ad-537b-8983-00126c2a3abe"
 
 [compat]
+MKL = "0.5"
 julia = "1.7.1"
 
 [extras]
